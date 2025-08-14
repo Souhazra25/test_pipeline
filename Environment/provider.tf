@@ -5,16 +5,7 @@ terraform {
       version = "4.34.0"
     }
   }
-  backend "azurerm" {
-    resource_group_name  = "soumyarg"
-    storage_account_name  = "backednsoumyastg"
-    container_name        = "soumyatfstate"
-    key                   = "terraform.tfstate"
-  }
 }
-
-
-
 
 provider "azurerm" {
   features {}
