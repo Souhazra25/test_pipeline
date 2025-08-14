@@ -4,19 +4,39 @@ trigger: none
 pool: Soumya
 
 
+
+
+variables: 
+  path: '$(System.DefaultWorkingDirectory)/Environment'
+  service_connection: 'Soumya_spn'
+
 steps:
  
 
 - task: TerraformInstaller@1
   inputs:
     terraformVersion: 'latest'
-
 - task: TerraformTask@5
   inputs:
     provider: 'azurerm'
     command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/Environment'
-    backendServiceArm: 'Soumya_spn'
+    workingDirectory: $(path)
+    backendServiceArm: $(service_connection)
     backendAzureRmStorageAccountName: 'backednsoumyastg'
     backendAzureRmContainerName: 'soumyatfstate'
     backendAzureRmKey: 'terraform.tfstate'
+
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    workingDirectory: $(path)
+    environmentServiceNameAzureRM: $(service_connection)
+
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: $(path)
+    commandOptions: '--auto-approve'
+    environmentServiceNameAzureRM: $(service_connection)
