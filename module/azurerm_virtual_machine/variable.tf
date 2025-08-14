@@ -37,12 +37,7 @@ variable "image_version" {
   description = "The version of the image"
   type        = string
 }
-# variable "secret_username_name" {
-# type = string
-# }
-# # variable "secret_password_name" {
-#     type = string
-# }
+
 variable "admin_username" {
   type = string
 }
@@ -54,11 +49,15 @@ variable "public_ip_name" {
   type        = string
   
 }
-variable "network_interface" {
+variable "network_interface_name" {
   description = "The name of the network interface"
   type        = string
-}
-variable "network_interface_id" {
-  description = "The ID of the network interface"
+} 
+variable "ip_configuration_name" {
+  description = "The name of the IP configuration"
   type        = string
 }
+
+
+
+
